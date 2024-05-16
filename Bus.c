@@ -37,6 +37,7 @@ void user_login_signup_menu();
 void user_menu();
 void bus_list();
 void seat_view();
+void ask_user_info();
 
 //---------------------------------------------------------End of function recall----------------------------------------------------------------------------------//
 
@@ -46,7 +47,7 @@ void seat_view();
 char bus[10][130]={"Hanif Enterprice","Shohag Enterprice","Lalon Shah Enterprice","Rozina Enterprice","Greenline"};
 char time[10][120]={"07.00 AM","10.00 AM","12.00 PM","03.00 PM","06.00 PM","09.00 PM"};
 char destination[10][50]={"Dhaka", "Chattogram", "Khulna", "Rajshahi", "Sylhet", "Barishal", "Rangpur", "Mymensingh"};
-int selected_bus,selected_destination,selected_time,selected_menu,selected_seat;
+int selected_bus,selected_destination,selected_time,selected_menu=2,selected_seat;
 
 struct booking_history
 {
@@ -95,7 +96,8 @@ int main()
     // user_login_signup_menu();
     // user_menu();
     // bus_list();
-    seat_view();
+    // seat_view();
+    ask_user_info();
     return 0;
 }
 
@@ -326,6 +328,7 @@ void user_signup() {
         printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
         printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  USER SIGNUP  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  ");
         printf("\n\n   ENTER USERNAME: ");
+        fflush(stdin);
         fgets(username, 10, stdin);
         username[strcspn(username, "\n")] = '\0';
 
@@ -350,6 +353,7 @@ void user_signup() {
         int i = 0;
         char ch;
         while (1) {
+            fflush(stdin);
             ch = getch();
             if (ch == '\r') {
                 password[i] = '\0';
@@ -368,6 +372,7 @@ void user_signup() {
         printf("   ENTER CONFIRM PASSWORD: ");
         i = 0;
         while (1) {
+            fflush(stdin);
             ch = getch();
             if (ch == '\r') {
                 confirm[i] = '\0';
@@ -704,22 +709,24 @@ void seat_view()
         printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
         printf("     BUS TICKET RESERVATION SYSTEM");
         printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
-        printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  DESTINATION  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+        printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  SEAT PLAN  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
         for (int i = 1; i <= 8; i++)
         {
                 printf("      [%-2d]   [%-2d]      [%-2d]   [%-2d]\n",i,i+8,i+16,i+24);
         }
         printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n\n");
+        printf("\n   ENTER SIT NUMBER: ");
         scanf("%d",&selected_seat);
         system("cls");
-        if (selected_seat >= 1 && selected_destination <= 32)
+        if (selected_seat >= 1 && selected_seat <= 32)
         {
-            // if (selected_menu==2)
-            // {               
-            //         strcpy(newbooking_history.destination,destination[selected_destination-1]);
-            // }
-            // broading_time();
-            // break;
+            if (selected_menu==2)
+            {               
+                newbooking_history.seat_no=selected_seat;
+            }
+            // printf("%d",newbooking_history.seat_no);
+            // getchar();
+            break;
         }
         else
         {
@@ -727,4 +734,23 @@ void seat_view()
         }
     }
     
+}
+
+void ask_user_info()
+{
+    char str[30],phnno[12];
+    system("cls");
+    printf("\n\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+    printf("\t     BUS TICKET RESERVATION SYSTEM");
+    printf("\n   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+    printf("   \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd  Please Provide Information  \xcd\xcd\xcd\xcd\xcd\xcd\xcd\xcd\n");
+    printf("\n   ENTER YOUR NAME: ");
+    fflush(stdin);
+    fgets(str, 30, stdin);
+    strcpy(newbooking_history.name,str);
+    printf("   ENTER YOUR PHONE NO: ");
+    fflush(stdin);
+    scanf(" %s",phnno);
+    strcpy(newbooking_history.phn_no,phnno);
+    // printf("%s%s",newbooking_history.name,newbooking_history.phn_no);
 }
